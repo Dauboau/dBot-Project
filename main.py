@@ -27,5 +27,5 @@ intents.members=True
 
 client = MyClient(intents=intents)
 
-# Bot token
-client.run('OTAyNjk2MzM1OTYxMTIwNzg5.YXiLeQ.HDVdmGVuU6Y0HYXJ3MxGjdhLZYs')
+# Bot token - private
+client.run('########')
