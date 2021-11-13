@@ -5,6 +5,7 @@
   "repoHost": "https://github.com",
   "files": [
     "AUTHORS"
+    "README.md"
   ],
   "imageSize": 50,
   "commit": true,
