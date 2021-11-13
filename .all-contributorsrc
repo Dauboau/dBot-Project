@@ -1,0 +1,24 @@
+{
+  "projectName": "dBot-Project",
+  "projectOwner": "Dauboau",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "AUTHORS"
+  ],
+  "imageSize": 50,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "Dauboau",
+      "name": "Daniel Contente Romanzini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86164187?v=4",
+      "profile": "https://github.com/Dauboau",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
