@@ -32,3 +32,18 @@
     </td></tr>
 </table>
 <!-- readme: contributors -end -->
+
+## Teste 2
+
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
+
+## Teste 3
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
+
+## Teste 4
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
