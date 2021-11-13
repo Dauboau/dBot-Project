@@ -1,0 +1,25 @@
+{
+  "name": "dbot-project-main",
+  "version": "1.0.0",
+  "description": "Collaborators List",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dauboau/dBot-Project.git"
+  },
+  "keywords": [
+    "[]"
+  ],
+  "author": "Daniel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dauboau/dBot-Project/issues"
+  },
+  "homepage": "https://github.com/Dauboau/dBot-Project#readme",
+  "devDependencies": {
+    "all-contributors-cli": "^6.20.0"
+  }
+}
