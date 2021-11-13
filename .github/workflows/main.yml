@@ -1,0 +1,22 @@
+# This is a basic workflow to help you get started with Actions
+
+name: contributors
+          
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    contrib-readme-job:
+        runs-on: ubuntu-latest
+        name: A job to automate contrib in readme
+        steps:
+            - name: Contribute List
+              uses: akhilmhdh/contributors-readme-action@v2.3.3
+              with:
+                image_size: 100
+                readme_path: AUTHORS.md
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
