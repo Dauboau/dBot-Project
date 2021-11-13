@@ -17,3 +17,8 @@
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## Teste
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
