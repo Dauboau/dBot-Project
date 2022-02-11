@@ -5,9 +5,6 @@ import numpy as np
 # Help(instructions) commands
 dhelp={'dregras','dRegras','dHelp','dhelp'}
 
-# Possible dice commands
-ddados={'d4','d6','d8','d10','d12','d20','d100'}
-
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
@@ -16,11 +13,17 @@ class MyClient(discord.Client):
         print('Message from {0.author}: {0.content}'.format(message))
         if message.content in dhelp:
           await message.channel.send(f"{message.author.name}, digite o dado que deseja jogar Ex: d12")
-        elif message.content in ddados:
+          return
+
+        elif message.content[0]=="d":
           a=message.content
           a=a.replace('d','')
-          a=int(a)
-          await message.channel.send(f"{np.random.randint(1,a+1)}")
+          try: # try transforming into an int
+            a=int(a)
+            await message.channel.send(f"{np.random.randint(1,a+1)}")
+            return
+          except: # if it fails,
+            pass # it does not do anything
 
 
 intents=discord.Intents.default()
