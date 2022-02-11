@@ -1,3 +1,4 @@
+import os
 import discord
 import numpy as np
 
@@ -28,4 +29,4 @@ intents.members=True
 client = MyClient(intents=intents)
 
 # Bot token - private
-client.run('########')
+client.run(os.environ['DISCORD_TOKEN'])
