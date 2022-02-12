@@ -13,7 +13,6 @@ class MyClient(discord.Client):
         print('Message from {0.author}: {0.content}'.format(message))
         if message.content in dhelp:
           await message.channel.send(f"{message.author.name}, digite o dado que deseja jogar Ex: d12")
-          return
 
         elif message.content[0]=="d":
           a=message.content
@@ -21,9 +20,17 @@ class MyClient(discord.Client):
           try: # try transforming into an int
             a=int(a)
             await message.channel.send(f"{np.random.randint(1,a+1)}")
-            return
           except: # if it fails,
             pass # it does not do anything
+
+        elif message.content[0]=="+":
+          b=message.content
+          b=b.replace('+','')
+          try:
+            b=int(b)
+            await message.channel.send(f"{np.random.randint(1,a+1)+a}")
+          except:
+            pass
 
 
 intents=discord.Intents.default()
