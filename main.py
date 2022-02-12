@@ -65,7 +65,7 @@ class MyClient(discord.Client):
             b=message.content
             aux=(message.content[0])
             
-            b=b.replace(aux,'')
+            b=b.replace(aux,'',1)
             b=b.replace('d','')
             b=int(b)
 
@@ -97,7 +97,7 @@ class MyClient(discord.Client):
             aux=(message.content[1])
             
             b=b.replace('+','')
-            b=b.replace(aux,'')
+            b=b.replace(aux,'',1)
             b=b.replace('d','')
             b=int(b)
 
