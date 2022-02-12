@@ -28,7 +28,7 @@ class MyClient(discord.Client):
           b=b.replace('+','')
           try:
             b=int(b)
-            await message.channel.send(f"{np.random.randint(1,a+1)+a}")
+            await message.channel.send(f"{np.random.randint(1,b+1)+a}")
           except:
             pass
 
