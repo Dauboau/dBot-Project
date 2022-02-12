@@ -1,2 +1,3 @@
 *.lock
 *.toml
+__pycache__/
