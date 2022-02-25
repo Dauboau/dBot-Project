@@ -21,7 +21,7 @@ def maintenance():
   subprocess.call([sys.executable, os.path.realpath(__file__)] +
 sys.argv[1:])
 
-schedule.every(72).hours.do(maintenance)
+schedule.every(6).months.do(maintenance)
 
 class MyClient(discord.Client):
 
