@@ -2,4 +2,3 @@ discord.py
 numpy
 psycopg2
 schedule
-subprocess
