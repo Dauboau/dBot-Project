@@ -51,7 +51,7 @@ def database_cleanup(DATABASE_URL):
 
   for i in range(len(row)):
     last_usage=row[i][0]
-    if(age_in_days(last_usage)>=2): # The data is stored for 2 days until it is deleted from storage
+    if(age_in_days(last_usage)>=30): # The data is stored for 30 days until it is deleted from storage
       try:
         cursor.execute(f"delete from dBotRPG_data where last_usage_date='{last_usage}';")
       except:
