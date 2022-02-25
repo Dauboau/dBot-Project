@@ -21,8 +21,7 @@ def maintenance():
   subprocess.call([sys.executable, os.path.realpath(__file__)] +
 sys.argv[1:])
 
-schedule.every(24).hours.do(maintenance)
-schedule.every(30).seconds.do(maintenance)
+schedule.every(72).hours.do(maintenance)
 
 class MyClient(discord.Client):
 
@@ -215,7 +214,7 @@ class MyClient(discord.Client):
             except:
               pass
           
-          else:
+          else: # Only trigged when no command was sent to the bot
             # Schedule Verification
             schedule.run_pending()
 
