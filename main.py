@@ -40,6 +40,7 @@ class MyClient(discord.Client):
         if message.content in dhelp:
           #print(clientuser.locale)
           await message.channel.send(f"{message.author.name}, digite o dado que deseja jogar Ex: d12")
+          return
 
         # Main_Output
         inp=message.content
@@ -213,9 +214,10 @@ class MyClient(discord.Client):
 
             except:
               pass
-      
-        # Schedule Verification
-        schedule.run_pending()
+          
+          else:
+            # Schedule Verification
+            schedule.run_pending()
 
 intents=discord.Intents.default()
 intents.members=True
