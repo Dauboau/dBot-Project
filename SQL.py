@@ -15,3 +15,14 @@ def load_stored_data(DATABASE_URL,users_tree):
   
     cursor.close()
     conn.close()
+
+def update_user_data(DATABASE_URL,message,dice):
+  conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+  cursor = conn.cursor()
+  cursor.execute(f"UPDATE dBotRPG_data SET total_dice = {dice} WHERE user_name = '{message.author.name}';")
+  conn.commit()
+  cursor.close()
+  conn.close()
+
+def insert_user_data():
+  return
