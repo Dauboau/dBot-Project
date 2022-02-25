@@ -1,8 +1,11 @@
 import os
 import discord
 import numpy as np
+import schedule
+import sys
+import subprocess
 from AVL import AVLTree
-from SQL import load_stored_data,update_user_data
+from SQL import load_stored_data,update_user_data,insert_user_data,database_cleanup
 
 # Help(instructions) commands
 dhelp={'dregras','dRegras','dHelp','dhelp'}
@@ -13,11 +16,20 @@ users_tree = AVLTree()
 # Database
 DATABASE_URL = os.environ['DATABASE_URL']
 
+# Schedule Maintenance
+def maintenance():
+  subprocess.call([sys.executable, os.path.realpath(__file__)] +
+sys.argv[1:])
+
+schedule.every(24).hours.do(maintenance)
+schedule.every(30).seconds.do(maintenance)
+
 class MyClient(discord.Client):
 
     # Bot startup procedure
     async def on_ready(self):
       print('Logged on as {0}!'.format(self.user))
+      database_cleanup(DATABASE_URL)
       load_stored_data(DATABASE_URL,users_tree)
 
     # Bot process commands when receives messages
@@ -26,6 +38,7 @@ class MyClient(discord.Client):
 
         # Help Command
         if message.content in dhelp:
+          #print(clientuser.locale)
           await message.channel.send(f"{message.author.name}, digite o dado que deseja jogar Ex: d12")
 
         # Main_Output
@@ -78,6 +91,7 @@ class MyClient(discord.Client):
               users_tree.insert(message.author.name)
               user_data=users_tree.search(message.author.name)
               user_data.total_dice=output
+              insert_user_data(DATABASE_URL,message,output)
             else:
               user_data.total_dice=output
               update_user_data(DATABASE_URL,message,output)
@@ -98,6 +112,7 @@ class MyClient(discord.Client):
                 users_tree.insert(message.author.name)
                 user_data=users_tree.search(message.author.name)
                 user_data.total_dice=rand
+                insert_user_data(DATABASE_URL,message,rand)
               else:
                 user_data.total_dice=rand
                 update_user_data(DATABASE_URL,message,rand)
@@ -121,6 +136,7 @@ class MyClient(discord.Client):
                 user_data=users_tree.search(message.author.name)
                 user_data.total_dice=rand
                 await message.channel.send(f"{user_data.total_dice-rand}+{rand}={user_data.total_dice}")
+                insert_user_data(DATABASE_URL,message,rand)
               else:
                 user_data.total_dice+=rand
                 await message.channel.send(f"{user_data.total_dice-rand}+{rand}={user_data.total_dice}")
@@ -154,6 +170,7 @@ class MyClient(discord.Client):
                 users_tree.insert(message.author.name)
                 user_data=users_tree.search(message.author.name)
                 user_data.total_dice=total
+                insert_user_data(DATABASE_URL,message,total)
               else:
                 user_data.total_dice=total
                 update_user_data(DATABASE_URL,message,total)
@@ -188,6 +205,7 @@ class MyClient(discord.Client):
                 user_data=users_tree.search(message.author.name)
                 user_data.total_dice=total
                 await message.channel.send(f"{user_data.total_dice-total} + os dados: {dices} = {user_data.total_dice}")
+                insert_user_data(DATABASE_URL,message,total)
               else:
                 user_data.total_dice+=total
                 await message.channel.send(f"{user_data.total_dice-total} + os dados: {dices} = {user_data.total_dice}")
@@ -195,6 +213,9 @@ class MyClient(discord.Client):
 
             except:
               pass
+      
+        # Schedule Verification
+        schedule.run_pending()
 
 intents=discord.Intents.default()
 intents.members=True
