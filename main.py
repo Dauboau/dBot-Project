@@ -38,7 +38,7 @@ class MyClient(discord.Client):
         # Help Command
         if message.content in dhelp:
           #print(clientuser.locale)
-          await message.channel.send(f"{message.author.name}, digite o dado que deseja jogar Ex: d12")
+          await message.channel.send(f"{message.author.name}, Type the dice you would like to roll. Ex: d12 or 3d20. Maybe use +d20 or +6d10 to add more dice to the ones you have already rolled or roll many different dice at the same time doing something like d10+2d20+d100.")
           return
 
         # Main_Output
