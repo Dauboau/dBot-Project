@@ -1,0 +1,35 @@
+name: deploy-to-compute-engine
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to Compute Engine via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCE_HOST }}
+          username: ${{ secrets.GCE_USER }}
+          key: ${{ secrets.GCE_SSH_KEY }}
+          passphrase: ${{ secrets.GCE_SSH_PASSPHRASE }}
+          port: ${{ secrets.GCE_PORT }}
+          script: |
+            set -e
+            cd ${{ secrets.GCE_APP_DIR }}
+            git fetch --all
+            git reset --hard origin/main
+            if [ -d .venv ]; then
+              . .venv/bin/activate
+            fi
+            python3 -m pip install --upgrade pip
+            pip install -r requirements.txt
+            sudo systemctl restart dBot-Project
