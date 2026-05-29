@@ -1,5 +1,4 @@
 import numpy as np
-from hash import hash
 
 # standart error output
 def error():
@@ -37,7 +36,7 @@ def rollDice(dadoStr):
     return -1
 
 # Rolar vários dados
-def rollDiceCommand(message):
+def rollDiceCommand(message, mongoDB):
 
   try:
   
@@ -57,14 +56,20 @@ def rollDiceCommand(message):
         
       dices += result
       
-    hash[message.author.id] = sum(dices)
+    total = sum(dices)
+    # Salva no MongoDB em vez de hash dictionary
+    mongoDB.user_dice_table.update_one(
+        {"_id": str(message.author.id)},
+        {"$set": {"last_roll_sum": total, "user_name": str(message.author.name)}},
+        upsert=True
+    )
     
-    return f"Os dados foram: {dices} com total: {sum(dices)}"
+    return f"Os dados foram: {dices} com total: {total}"
 
   except:
     return error()
 
-def sumDiceCommand(message):
+def sumDiceCommand(message, mongoDB):
 
   try:
   
@@ -85,12 +90,19 @@ def sumDiceCommand(message):
         
       dices += result
 
-    # returns 0 if there the key is not found
-    savedValue = hash.get(message.author.id,0)
+    # returns 0 if there the key is not found in MongoDB
+    user_doc = mongoDB.user_dice_table.find_one({"_id": str(message.author.id)})
+    savedValue = user_doc.get("last_roll_sum", 0) if user_doc else 0
     
-    hash[message.author.id] = savedValue + sum(dices)
+    new_total = savedValue + sum(dices)
     
-    return f"{savedValue} + os dados: {dices} = {hash[message.author.id]}"
+    mongoDB.user_dice_table.update_one(
+        {"_id": str(message.author.id)},
+        {"$set": {"last_roll_sum": new_total, "user_name": str(message.author.name)}},
+        upsert=True
+    )
+    
+    return f"{savedValue} + os dados: {dices} = {new_total}"
 
   except:
     return error()

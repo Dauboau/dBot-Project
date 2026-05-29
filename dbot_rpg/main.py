@@ -2,6 +2,9 @@ import os
 import discord
 import asyncio
 from input_handling import user_input
+from database import MongoDB
+
+mongoDB = MongoDB()
 
 class MyClient(discord.Client):
 
@@ -18,7 +21,7 @@ class MyClient(discord.Client):
       
         print('Message from {0.author}:{0.content}'.format(message))
 
-        output = await asyncio.to_thread(user_input, message)
+        output = await asyncio.to_thread(user_input, message, mongoDB)
 
         if(output is not None and len(output)>0):
           await message.channel.send(output)
