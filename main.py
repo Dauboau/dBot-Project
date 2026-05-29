@@ -1,34 +1,55 @@
+import multiprocessing
+import subprocess
+import sys
 import os
-import discord
-from input_handling import user_input
+from dotenv import load_dotenv
 
-# Help(instructions) commands
-dhelp={'dregras','dRegras','dHelp','dhelp'}
+## .env
+load_dotenv()
 
-class MyClient(discord.Client):
+# SSL
+try:
+    import certifi
+    os.environ['SSL_CERT_FILE'] = certifi.where()
+except ImportError:
+    pass
 
-    # Bot startup procedure
-    async def on_ready(self):
-      print('Logged on as {0}!'.format(self.user))
+def run_bot(folder_name):
+    
+    print(f"[{folder_name}] Starting bot...")
+    
+    # Configure logging and environment variables
+    # Using sys.executable ensures the same Python runtime (.venv) is used
+    try:
+        process = subprocess.Popen(
+            [sys.executable, "main.py"],
+            cwd=os.path.join(os.getcwd(), folder_name),
+            env=os.environ.copy()
+        )
+        process.communicate()
+    except Exception as e:
+        print(f"[{folder_name}] Critical Error: {e}")
 
-    # Bot process commands when receives messages
-    async def on_message(self, message):
+if __name__ == '__main__':
+    
+    bot_folders = ['dbot_rpg', 'dbot_mod']
+    processes = []
+    
+    multiprocessing.set_start_method('spawn', force=True)
 
-        # Ignora mensagens do bot
-        if(message.author.id == 902696335961120789):
-          return
-      
-        print('Message from {0.author}:{0.content}'.format(message))
+    # Start a background process for each bot
+    for folder in bot_folders:
+        p = multiprocessing.Process(target=run_bot, args=(folder,))
+        p.start()
+        processes.append(p)
 
-        output = user_input(message)
-
-        if(len(output)>0):
-          await message.channel.send(output)
-
-intents=discord.Intents.all()
-intents.members=True
-
-client = MyClient(intents=intents)
-
-# Bot token - private
-client.run(os.environ['DISCORD_TOKEN_DBOTRPG'])
+    try:
+        # Keep the main script alive waiting for child processes
+        for p in processes:
+            p.join()
+    except KeyboardInterrupt:
+        print("\nTurning all bots off...")
+        for p in processes:
+            p.terminate()
+            p.join()
+        print("All bots turned off.")
