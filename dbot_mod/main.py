@@ -32,4 +32,4 @@ intents.members=True
 client = MyClient(intents=intents)
 
 # Bot token - private
-client.run(os.environ['DISCORD_TOKEN'])
+client.run(os.environ['DISCORD_TOKEN_DBOTMOD'])
