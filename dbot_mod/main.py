@@ -1,11 +1,9 @@
 import os
-from dotenv import load_dotenv
 import discord
 from input_handling import user_input
 from database import MongoDB
 import asyncio
 
-load_dotenv()
 mongoDB = MongoDB()
 
 class MyClient(discord.Client):

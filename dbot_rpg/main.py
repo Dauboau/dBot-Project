@@ -14,8 +14,8 @@ class MyClient(discord.Client):
     # Bot process commands when receives messages
     async def on_message(self, message):
 
-        # Ignora mensagens do bot
-        if(message.author.id == 902696335961120789):
+        # Igores messages from any bots
+        if(message.author.bot == True):
           return
       
         print('Message from {0.author}:{0.content}'.format(message))
