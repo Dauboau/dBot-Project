@@ -3,9 +3,6 @@ import discord
 import asyncio
 from input_handling import user_input
 
-# Help(instructions) commands
-dhelp={'dregras','dRegras','dHelp','dhelp'}
-
 class MyClient(discord.Client):
 
     # Bot startup procedure
