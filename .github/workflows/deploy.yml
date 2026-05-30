@@ -33,4 +33,4 @@ jobs:
             fi
             python3 -m pip install --upgrade pip
             pip install -r requirements.txt
-            sudo systemctl restart dBot-Project
+            sudo systemctl restart dbots
