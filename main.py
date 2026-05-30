@@ -21,10 +21,12 @@ def run_bot(folder_name):
     # Configure logging and environment variables
     # Using sys.executable ensures the same Python runtime (.venv) is used
     try:
+        env = os.environ.copy()
+        env['PYTHONUNBUFFERED'] = '1'
         process = subprocess.Popen(
             [sys.executable, "main.py"],
             cwd=os.path.join(os.getcwd(), folder_name),
-            env=os.environ.copy()
+            env=env
         )
         process.communicate()
     except Exception as e:
