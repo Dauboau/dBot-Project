@@ -91,7 +91,7 @@ def checkGenAI(messages:List[Message]):
             "Content-Type": "application/json",
             "HTTP-Referer": "https://dbotmod-ff21f0fa87b2.herokuapp.com/",
             "X-Title": "dBotMod",
-            "X-OpenRouter-Cache": "true",
+            "X-OpenRouter-Cache": "false",
         },
         data=json.dumps({
             "model": "openai/gpt-5.6-luna",
@@ -242,7 +242,7 @@ def shouldModerateGenAI(moderation:Moderation,moderating_hystory):
             "Content-Type": "application/json",
             "HTTP-Referer": "https://dbotmod-ff21f0fa87b2.herokuapp.com/",
             "X-Title": "dBotMod",
-            "X-OpenRouter-Cache": "true",
+            "X-OpenRouter-Cache": "false",
         },
         data=json.dumps({
             "model": "openai/gpt-5.6-luna",
