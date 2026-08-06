@@ -93,7 +93,7 @@ def checkGenAI(messages:List[Message]):
             "X-Title": "dBotMod",
         },
         data=json.dumps({
-            "model": "openrouter/free",
+            "model": "openai/gpt-5.6-luna",
             "messages": [
                 {
                     "role": "user",
@@ -185,7 +185,7 @@ def suggestGenAI(user:str,messages:List[Message]):
             "X-Title": "dBotMod",
         },
         data=json.dumps({
-            "model": "openrouter/free",
+            "model": "openai/gpt-5.6-luna",
             "messages": [
                 {
                     "role": "user",
@@ -242,7 +242,7 @@ def shouldModerateGenAI(moderation:Moderation,moderating_hystory):
             "X-Title": "dBotMod",
         },
         data=json.dumps({
-            "model": "openrouter/free",
+            "model": "openai/gpt-5.6-luna",
             "messages": [
                 {
                     "role": "user",
